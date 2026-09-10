@@ -14,13 +14,11 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY;
     private final Key key;
 
     public JwtUtil(@Value("${app.jwt.secret}") String secretKey) {
-        this.SECRET_KEY = secretKey;
         this.key = Keys.hmacShaKeyFor(
-                SECRET_KEY.getBytes(StandardCharsets.UTF_8)
+                secretKey.getBytes(StandardCharsets.UTF_8)
         );
     }
 
@@ -49,21 +47,16 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDetails userDetails, String role) {
-
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
 
-        return createToken(
-                claims,
-                userDetails.getUsername()
-        );
+        return createToken(claims, userDetails.getUsername());
     }
 
     private String createToken(
             Map<String, Object> claims,
             String subject
     ) {
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
@@ -79,7 +72,6 @@ public class JwtUtil {
             String token,
             UserDetails userDetails
     ) {
-
         final String username = extractUsername(token);
 
         return username.equals(userDetails.getUsername())
