@@ -1,22 +1,20 @@
 import axios from 'axios';
 
-// Create a base instance
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api' // Your Spring Boot app's address
+  baseURL: `${import.meta.env.VITE_API_URL}/api`
 });
 
-// Request Interceptor: Adds the JWT token to every request
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
+
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default api;
