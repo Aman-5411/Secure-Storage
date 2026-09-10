@@ -12,7 +12,7 @@ The application allows users to register, authenticate, upload and manage files,
 * **Backend:** Deployed on Render
 * **Database:** PostgreSQL hosted on Render
 
-> Add your live Vercel URL and Render API URL here once you want them publicly listed.
+> https://secure-storage-six.vercel.app/
 
 ---
 
